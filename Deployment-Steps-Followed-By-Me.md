@@ -1,11 +1,8 @@
-Below is a **ready-to-use GitHub README.md** structure for your project **“Production Level CI/CD Pipeline Project – FullStack Blogging App”**.
-You can directly copy and paste it into your GitHub repository.
-
 ---
 
 # 🚀 Production Level CI/CD Pipeline Project – FullStack Blogging App
 
-This project demonstrates a **Production-level CI/CD pipeline implementation for a FullStack Blogging Application** using modern **DevOps tools and best practices**.
+This project demonstrates a **Production-level CI/CD pipeline implementation for a FullStack Blogging Application** and the **steps** i have followed.
 
 The pipeline automates the complete workflow from **code commit → build → security scan → artifact storage → containerization → Kubernetes deployment → monitoring**.
 
@@ -38,9 +35,11 @@ Trivy Docker Image Scan
       ↓
 Push Docker Image to DockerHub
       ↓
-Deploy Application to Kubernetes (EKS)
+Deploy Application to Kubernetes (EKS cluster configure using Terraform)
       ↓
 Expose using LoadBalancer
+     ↓
+Added Email confirmation
       ↓
 Map Custom Domain
       ↓
@@ -86,7 +85,7 @@ git push origin main
 
 ---
 
-# 🖥️ Server Setup
+# 🖥️ Server Setup (AWS EC2 Instances)
 
 Separate servers were created for each DevOps tool.
 
@@ -112,7 +111,7 @@ Create a **common security group** allowing required ports:
 | 8081 | Nexus      |
 | 3000 | Grafana    |
 | 9090 | Prometheus |
-
+| 465  | SMTPS       |
 ---
 
 # ⚙️ Step 2: Jenkins Server Setup
@@ -201,6 +200,7 @@ SonarQube Token
 Nexus Credentials
 DockerHub Credentials
 Kubernetes Secret
+App password for jenkins from Google Account
 ```
 
 Also configure:
@@ -224,7 +224,7 @@ docker run -d -p 8081:8081 --name nexus sonatype/nexus3
 Retrieve default password:
 
 ```
-docker exec -it nexus cat /nexus-data/admin.password
+docker exec -it container_id /bin/bash cat /sonatype-work/nexus3/admin.password
 ```
 
 Then configure:
@@ -347,8 +347,11 @@ service.yml
 ```
 role.yml
 ```
+### Bind Role to Jenkins Service Account YAML
 
-Bind role to Jenkins service account.
+```
+bind-role.yml
+```
 
 Create Kubernetes secret:
 
@@ -454,23 +457,6 @@ Name: blog
 Value: <EKS-load-balancer-url>
 ```
 
----
-
-# 🚀 Triggering the Pipeline
-
-When code is pushed to GitHub:
-
-1️⃣ Jenkins pipeline triggers automatically
-2️⃣ Code builds using Maven
-3️⃣ Security scans run
-4️⃣ Artifacts stored in Nexus
-5️⃣ Docker image built and scanned
-6️⃣ Image pushed to DockerHub
-7️⃣ Kubernetes deploys application
-8️⃣ Monitoring tracks application health
-
----
-
 # 📊 Final Output
 
 Your application will be accessible via:
@@ -486,32 +472,3 @@ Monitoring dashboards available in:
 Grafana
 Prometheus
 ```
-
----
-
-# 🎯 Project Outcome
-
-This project demonstrates:
-
-✔ Production level CI/CD pipeline
-✔ DevSecOps security integration
-✔ Automated container deployment
-✔ Infrastructure as Code using Terraform
-✔ Kubernetes orchestration
-✔ Real-time monitoring & alerting
-
----
-
-✅ **End-to-End DevOps Lifecycle Implemented Successfully**
-
----
-
-If you want, I can also help you create a **much more professional GitHub README (like big DevOps projects)** with:
-
-* Architecture diagram
-* Pipeline diagram
-* Folder structure
-* Badges
-* Screenshots sections
-
-which will make your **GitHub portfolio look 10× more impressive for recruiters.**
