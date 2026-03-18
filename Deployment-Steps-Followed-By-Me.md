@@ -366,6 +366,38 @@ Add **deployment-service.yml** step in Jenkins pipeline.
 
 ---
 
+# 📧 Jenkins Email Notification Setup
+
+##  Configure Email Settings
+
+Go to:
+
+```text
+Manage Jenkins → System Configuration
+```
+
+### 📌 Configure SMTP
+
+Example (Gmail):
+
+```text
+SMTP Server: smtp.gmail.com
+Port: 465
+Use TLS: Yes
+Username: your-email@gmail.com
+Password: app-password
+```
+
+⚠️ Generate app password for jenkins and use **App Password**, not your Gmail password.
+
+---
+
+### 📌 Default Email Settings
+
+```text
+Default Recipients: your-email@gmail.com
+```
+
 # 📊 Step 6: Monitoring Setup
 
 Monitoring stack includes:
